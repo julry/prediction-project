@@ -4,6 +4,8 @@ import { TextWrapper } from './TextWrapper';
 import { getRandomText } from '../utils/getRandomText';
 import { background, backgroundSm } from '../constants/images';
 import { Button } from './Button';
+import { getShareParams } from '../utils/getShareParams';
+import { openHref } from '../utils/openHref';
 
 const Wrapper = styled.div`
   position: relative;
@@ -125,9 +127,42 @@ const ButtonStyled = styled(Button)`
 export const ScreenWrapper = () => {
     const [text, setText] = useState('');
 
+    const {image} = getShareParams();
     useEffect(() => {
         if (!text) setText(() => getRandomText());
     }, [text]);
+
+    const onBtnClick = () => {
+        window.VK.Auth.login(() => {
+            window.VK.Api.call('photos.getWallUploadServer', {v: '5.131'}, function(r) {
+                const imgBody = new FormData();
+                imgBody.append('photo', image);
+                fetch(r.response['upload_url'], {
+                    method: 'POST',
+                    body: imgBody,
+                    mode: 'cors',
+                    headers: {
+                        'Access-Control-Allow-Origin':'*',
+                        'Access-Control-Allow-Headers':'*',
+                        'Content-Type': 'multipart/form-data'
+                    },
+                }).then(res => console.log('res', res)).catch(e => console.log('error', e));
+                // window.VK.Api.call('photos.saveWallPhoto', {v: '5.131'}, function(r) {
+                //
+                // });
+            });
+        }, 4);
+        // openHref(`https://oauth.vk.com/authorize?client_id=51508653&scope=wall&display=page&redirect_uri=${window.location.href}&response_type=token`)
+        // window.VK.Api.call('')
+
+        // window.VK.Api.call('wall.post', {message: text, attachments: 'photo'+image}, function(r) {
+        //     console.log(r);
+        //     if(r.response) {
+        //         console.log('hiii')
+        //     }
+        // });
+        //openHref(`https://oauth.vk.com/authorize?${queryParams.toString()}`)
+    }
 
     return (
         <Wrapper>
@@ -141,7 +176,7 @@ export const ScreenWrapper = () => {
                 <SubTitle>{'Что ждёт тебя\nв карьерном будущем?'}</SubTitle>
             </SubTitleWrapper>
             <TextWrapper>{text}</TextWrapper>
-            <ButtonStyled> Поделиться </ButtonStyled>
+            <ButtonStyled onClick={onBtnClick}> Поделиться </ButtonStyled>
             {/*<div className={'testAnimation'}></div>*/}
         </Wrapper>
     )
