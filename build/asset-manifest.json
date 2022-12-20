@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "./static/css/main.038cc488.css",
+    "main.js": "./static/js/main.9acdc327.js",
+    "static/js/787.40c982b5.chunk.js": "./static/js/787.40c982b5.chunk.js",
+    "static/media/background.png": "./static/media/background.38166fc3488839ce0202.png",
+    "static/media/backgroundSm.png": "./static/media/backgroundSm.87917e14e2ad294b2ed0.png",
+    "static/media/SBSansDisplay-Bold.ttf": "./static/media/SBSansDisplay-Bold.b04f53d7c758322e5e08.ttf",
+    "static/media/SBSansDisplay-SemiBold.ttf": "./static/media/SBSansDisplay-SemiBold.6c7f5326d318d4d12a58.ttf",
+    "static/media/robot.png": "./static/media/robot.651c2c14abdc293ac2c6.png",
+    "static/media/SBSansDisplay-SemiBold.otf": "./static/media/SBSansDisplay-SemiBold.eb86543b7771aa0cedc1.otf",
+    "static/media/SBSansDisplay-Bold.otf": "./static/media/SBSansDisplay-Bold.55c0e1e1cebca34580da.otf",
+    "static/media/SBSansDisplay-Bold.woff": "./static/media/SBSansDisplay-Bold.e1e22a019288ae7deb0b.woff",
+    "static/media/SBSansDisplay-SemiBold.woff": "./static/media/SBSansDisplay-SemiBold.466ac22a800e7d895558.woff",
+    "static/media/SBSansDisplay-SemiBold.eot": "./static/media/SBSansDisplay-SemiBold.a9954f802d8f78d79cf6.eot",
+    "static/media/SBSansDisplay-Bold.eot": "./static/media/SBSansDisplay-Bold.2836d760a9fbc98b9f4c.eot",
+    "index.html": "./index.html",
+    "main.038cc488.css.map": "./static/css/main.038cc488.css.map",
+    "main.9acdc327.js.map": "./static/js/main.9acdc327.js.map",
+    "787.40c982b5.chunk.js.map": "./static/js/787.40c982b5.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.038cc488.css",
+    "static/js/main.9acdc327.js"
+  ]
+}
