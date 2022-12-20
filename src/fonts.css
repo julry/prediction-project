@@ -1,0 +1,21 @@
+@font-face {
+    font-family: 'SBSans';
+    src: local('SBSans'), local('SBSans'),
+    url('./static/fonts/SBSans-Bold/SBSansDisplay-Bold.ttf') format('truetype'),
+    url('./static/fonts/SBSans-Bold/SBSansDisplay-Bold.otf') format('opentype'),
+    url('./static/fonts/SBSans-Bold/SBSansDisplay-Bold.woff') format('woff'),
+    url('./static/fonts/SBSans-Bold/SBSansDisplay-Bold.eot');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SBSans';
+    src: local('SBSans'), local('SBSans'),
+    url('./static/fonts/SBSans-Semibold/SBSansDisplay-SemiBold.ttf') format('truetype'),
+    url('./static/fonts/SBSans-Semibold/SBSansDisplay-SemiBold.otf') format('opentype'),
+    url('./static/fonts/SBSans-Semibold/SBSansDisplay-SemiBold.woff') format('woff'),
+    url('./static/fonts/SBSans-Semibold/SBSansDisplay-SemiBold.eot');
+    font-weight: 600;
+    font-style: normal;
+}

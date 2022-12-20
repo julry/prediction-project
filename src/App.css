@@ -36,3 +36,24 @@
     transform: rotate(360deg);
   }
 }
+
+
+.testAnimation {
+  width: 350px;
+  overflow: hidden;
+  height: 415px;
+  animation: animateCloud 0.65s steps(2) infinite;
+  /*background-image: url('./robot.png');*/
+  background-repeat: repeat-x;
+  background-position: 0 0;
+}
+
+@keyframes animateCloud  {
+  from {
+    background-position: 0 0;
+  }
+  to
+  {
+    background-position: 700px 0;
+  }
+}
