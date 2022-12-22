@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { TextWrapper } from './TextWrapper';
-import { getRandomText } from '../utils/getRandomText';
 import { background, backgroundSm } from '../constants/images';
 import { Button } from './Button';
 
@@ -156,19 +155,9 @@ const ButtonStyled = styled(Button)`
   }
 `;
 
-export const ScreenWrapper = () => {
-    const [text, setText] = useState('');
-
-    useEffect(() => {
-        if (!text) setText(() => getRandomText());
-    }, [text]);
-
+export const ScreenWrapper = (props) => {
     const onBtnClick = () => {
-        const message = 'Получил предсказание на 2023 год от Искусственного Интеллекта,' +
-            'потратив лишь 3 минуты на опрос Рейтинга вузов по качеству подготовки специалистов РФ!';
-
-        const attachments = 'https://ru.surveymonkey.com/r/J7WWZDP';
-        window.VK.Api.call('wall.post', {message, attachments}, function (r){console.log(r)});
+        props.setIsSharing(true);
     }
 
     return (
@@ -182,7 +171,7 @@ export const ScreenWrapper = () => {
                 <SubTitleSphere />
                 <SubTitle>{'Что ждёт тебя\nв карьерном будущем?'}</SubTitle>
             </SubTitleWrapper>
-            <TextWrapper>{text}</TextWrapper>
+            <TextWrapper>{props.text}</TextWrapper>
             <ButtonStyled onClick={onBtnClick}> Поделиться </ButtonStyled>
         </Wrapper>
     );
