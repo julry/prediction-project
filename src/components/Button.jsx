@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ButtonBorder } from './ButtonBorder';
+import { ButtonBorder } from './svg/ButtonBorder';
 
 const ButtonStyled = styled.div`
   position: relative;

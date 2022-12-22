@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Border } from './Border';
+import { Border } from './svg/Border';
 
 const Wrapper = styled.div`
   display: flex;
