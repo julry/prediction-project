@@ -15,15 +15,24 @@ const Wrapper = styled.div`
   font-weight: 600;
   font-size: 16px;
   text-align: center;
-  
+
+  @media screen and (max-width: 330px) {
+    font-size: 14px;
+  }
+
   @media screen and (min-width: 700px) {
     font-size: 20px;
   }
-  
+
   @media screen and (min-width: 1000px) {
     font-size: 32px;
     height: 240px;
     width: 785px;
+  }
+
+  @media screen and (orientation: landscape) and (max-height: 640px) and (max-width: 999px) {
+    font-size: 11px;
+    max-width: 320px;
   }
 `;
 
@@ -41,11 +50,9 @@ const BorderStyled = styled(Border)`
   }
 `;
 
-export const TextWrapper = (props) => {
-    return (
-        <Wrapper>
-            <p>{props.children}</p>
-            <BorderStyled />
-        </Wrapper>
-    )
-}
+export const TextWrapper = (props) => (
+    <Wrapper>
+        <p>{props.children}</p>
+        <BorderStyled/>
+    </Wrapper>
+);

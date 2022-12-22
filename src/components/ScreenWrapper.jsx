@@ -4,8 +4,6 @@ import { TextWrapper } from './TextWrapper';
 import { getRandomText } from '../utils/getRandomText';
 import { background, backgroundSm } from '../constants/images';
 import { Button } from './Button';
-import { getShareParams } from '../utils/getShareParams';
-import { openHref } from '../utils/openHref';
 
 const Wrapper = styled.div`
   position: relative;
@@ -19,6 +17,10 @@ const Wrapper = styled.div`
   
   @media screen and (min-width: 1000px) {
     padding: 50px calc((100vw - 785px) / 2);
+  }
+  
+  @media screen and (orientation: landscape) and (max-height: 640px) and (max-width: 999px){
+    padding: 2.6024vw 5.5385vw 0;
   }
 `;
 
@@ -57,6 +59,14 @@ const Title = styled.h1`
   text-transform: uppercase;
   margin-bottom: 6.3081vh;
   
+  @media screen and (max-height: 600px) {
+    margin-bottom: 4.3081vh;
+  }
+  
+  @media screen and (max-width: 330px) {
+    font-size: 18px;
+  }
+  
   @media screen and (min-width: 700px) {
     font-size: 25px;
   }
@@ -65,17 +75,30 @@ const Title = styled.h1`
     font-size: 40px;
     margin-bottom: 17px;
   }
+
+  @media screen and (orientation: landscape) and (max-height: 640px) and (max-width: 999px){
+    font-size: 16px;
+  }
 `;
 
 const SubTitle = styled.h2`
   font-size: 16px;
   text-transform: uppercase;
+
+  @media screen and (max-width: 330px) {
+    font-size: 14px;
+  }
+  
   @media screen and (min-width: 700px) {
     font-size: 20px;
   }
 
   @media screen and (min-width: 1000px) {
     font-size: 32px;
+  }
+
+  @media screen and (orientation: landscape) and (max-height: 640px) and (max-width: 999px){
+    font-size: 11px;
   }
 `;
 
@@ -92,6 +115,10 @@ const SubTitleWrapper = styled.div`
   font-size: 16px;
   max-width: 668px;
   
+  @media screen and (max-width: 330px) {
+    font-size: 14px;
+  }
+  
   @media screen and (min-width: 700px) {
     font-size: 20px;
   }
@@ -101,17 +128,22 @@ const SubTitleWrapper = styled.div`
     margin-bottom: 15px;
     padding-top: 19px;
   }
+
+  @media screen and (orientation: landscape) and (max-height: 640px) and (max-width: 999px){
+    font-size: 11px;
+    max-width: 320px;
+  }
 `;
 
 const SubTitleSphere = styled.div`
   position: absolute;
+  z-index: -1;
   top: 0;
   left: 0;
   background: radial-gradient(62.64% 62.64% at 50% 50%, #04866A 0%, rgba(4, 134, 106, 0) 100%);
   filter: blur(18.5px);
   width: 100%;
   height: 100%;
-  z-index: -1;
 `;
 
 
@@ -127,41 +159,16 @@ const ButtonStyled = styled(Button)`
 export const ScreenWrapper = () => {
     const [text, setText] = useState('');
 
-    const {image} = getShareParams();
     useEffect(() => {
         if (!text) setText(() => getRandomText());
     }, [text]);
 
     const onBtnClick = () => {
-        window.VK.Auth.login(() => {
-            window.VK.Api.call('photos.getWallUploadServer', {v: '5.131'}, function(r) {
-                const imgBody = new FormData();
-                imgBody.append('photo', image);
-                fetch(r.response['upload_url'], {
-                    method: 'POST',
-                    body: imgBody,
-                    mode: 'cors',
-                    headers: {
-                        'Access-Control-Allow-Origin':'*',
-                        'Access-Control-Allow-Headers':'*',
-                        'Content-Type': 'multipart/form-data'
-                    },
-                }).then(res => console.log('res', res)).catch(e => console.log('error', e));
-                // window.VK.Api.call('photos.saveWallPhoto', {v: '5.131'}, function(r) {
-                //
-                // });
-            });
-        }, 4);
-        // openHref(`https://oauth.vk.com/authorize?client_id=51508653&scope=wall&display=page&redirect_uri=${window.location.href}&response_type=token`)
-        // window.VK.Api.call('')
+        const message = 'Получил предсказание на 2023 год от Искусственного Интеллекта,' +
+            'потратив лишь 3 минуты на опрос Рейтинга вузов по качеству подготовки специалистов РФ!';
 
-        // window.VK.Api.call('wall.post', {message: text, attachments: 'photo'+image}, function(r) {
-        //     console.log(r);
-        //     if(r.response) {
-        //         console.log('hiii')
-        //     }
-        // });
-        //openHref(`https://oauth.vk.com/authorize?${queryParams.toString()}`)
+        const attachments = 'https://ru.surveymonkey.com/r/J7WWZDP';
+        window.VK.Api.call('wall.post', {message, attachments}, function (r){console.log(r)});
     }
 
     return (
@@ -177,7 +184,6 @@ export const ScreenWrapper = () => {
             </SubTitleWrapper>
             <TextWrapper>{text}</TextWrapper>
             <ButtonStyled onClick={onBtnClick}> Поделиться </ButtonStyled>
-            {/*<div className={'testAnimation'}></div>*/}
         </Wrapper>
-    )
-}
+    );
+};
