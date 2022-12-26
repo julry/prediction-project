@@ -66,22 +66,62 @@ function App() {
     }, []);
 
     useEffect(() => {
-        if (!text) setText(() => getRandomText());
+        const screenParam = window.location.href.split('#')[1];
+        const newText = getRandomText();
+        const textParam = localStorage.getItem('text');
+        const message = text ? text
+            : screenParam ? textParam ?? newText
+                : newText;
+        if (!text) {
+            setText(() => message);
+            localStorage.setItem('text', message);
+        }
+
+        if (screenParam) {
+            const accessToken = screenParam.replace('access_token=', '');
+            postOnWallVk(accessToken, message);
+        }
     }, [text]);
 
-    const message = 'Мое предсказание на 2023 год от Искусственного Интеллекта, расскажи ' +
+    const vkMessage = 'Мое предсказание на 2023 год от Искусственного Интеллекта, расскажи ' +
         'и ты о своем вузе! ' + text.replaceAll('\n', ' ');
     const attachments = 'https://ru.surveymonkey.com/r/J7WWZDP';
 
-    const onVkShare = () => {
-        window.VK.Api.call('wall.post', {message, attachments}, function (r) {
-            console.log(r);
+    const postOnWallVk = (access_token, newText) => {
+        let message = vkMessage;
+        if (!text) {
+            message += newText.replaceAll('\n', ' ');
+        }
+        window.VK.Api.call('wall.post', {message, attachments, access_token}, function (r) {
+            if (r.response) {
+                localStorage.removeItem('text');
+                window.location.href = window.location.href.split('#')[0];
+            }
         });
+        if (typeof window.VK?.UI?.active?.closed !== 'boolean') {
+            setIsSharing(true);
+        }
+    }
+
+    const onVkShare = () => {
+        const queryParams = new URLSearchParams();
+        queryParams.append('client_id', '51508653');
+        queryParams.append('display', 'mobile');
+        queryParams.append('redirect_uri', `${window.location.href.split('#')[0].split('?')[0]}`);
+        queryParams.append('scope', 'wall');
+        queryParams.append('response_type', 'token');
+        const screenParam = window.location.href.split('#')[1];
+        if (!screenParam) {
+            window.open(`https://oauth.vk.com/authorize?${queryParams.toString()}`,'_self');
+        } else {
+            const accessToken = screenParam.replace('access_token=', '');
+            postOnWallVk(accessToken);
+        }
         setIsSharing(false);
     };
 
     const onLinkCopy = () => {
-        const text = attachments + '\n' + message;
+        const text = attachments + '\n' + vkMessage;
         if (window.clipboardData && window.clipboardData.setData) {
             return window.clipboardData.setData('Text', text);
         } else if (navigator.clipboard && window.isSecureContext) {
