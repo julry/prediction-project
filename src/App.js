@@ -4,6 +4,7 @@ import { ScreenWrapper } from './components/ScreenWrapper';
 import { robot } from './constants/images';
 import { ShareModal } from './components/ShareModal';
 import { getRandomText } from './utils/getRandomText';
+import { reachMetrikaGoal } from './utils/reachMetrikaGoal';
 
 const ContentWrapper = styled.div`
   height: ${({height}) => height};
@@ -106,6 +107,7 @@ function App() {
 
     const onLinkShare = () => {
         onLinkCopy();
+        reachMetrikaGoal('link');
         setTimeout(() => setIsSharing(false), 3500);
     };
 

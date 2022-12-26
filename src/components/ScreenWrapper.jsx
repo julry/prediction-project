@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { TextWrapper } from './TextWrapper';
 import { background, backgroundSm } from '../constants/images';
 import { Button } from './Button';
+import { reachMetrikaGoal } from '../utils/reachMetrikaGoal';
 
 const Wrapper = styled.div`
   position: relative;
@@ -157,6 +158,7 @@ const ButtonStyled = styled(Button)`
 
 export const ScreenWrapper = (props) => {
     const onBtnClick = () => {
+        reachMetrikaGoal('share');
         props.setIsSharing(true);
     }
 
