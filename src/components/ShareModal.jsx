@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { VKIcon } from './svg/VKIcon';
 import { LinkIcon } from './svg/LinkIcon';
 import { ShareButton } from './ShareButton';
 
@@ -29,11 +28,6 @@ const Content = styled.div`
   display: flex;
 `;
 
-const VKIconStyled = styled(VKIcon)`
-  width: 80px;
-  height: 80px;
-`;
-
 const LinkIconStyled = styled(LinkIcon)`
   width: 86px;
   height: 64px;
@@ -54,10 +48,6 @@ export const ShareModal = (props) => {
         <Wrapper className={props.className}>
             <BlurBg onClick={props.onClose}/>
             <Content>
-                <ShareButton onClick={props.onVkShare}>
-                    <VKIconStyled />
-                    <p>{'На стене\nВК'}</p>
-                </ShareButton>
                 <ShareButton shareDone={shareLinkSaved} onClick={onLinkClick}>
                     <LinkIconStyled shareLinkSaved={shareLinkSaved}/>
                     <p>{shareLinkSaved ? 'Ссылка\nскопирована' : 'Копировать\nссылку'}</p>
