@@ -12,16 +12,6 @@ const ShareBtn = styled.div`
   grid-template-rows: 90px 1fr;
   white-space: pre-line;
   cursor: pointer;
-  
-  & + & {
-    margin-left: 20px;
-  }
-  
-  @media screen and (max-width: 330px) {
-    & + & {
-      margin-left: 10px;
-    }
-  }
 `;
 
 const ShareBorderStyled = styled(ShareBorder)`

@@ -66,70 +66,20 @@ function App() {
     }, []);
 
     useEffect(() => {
-        const screenParam = window.location.href.split('#')[1];
-        const newText = getRandomText();
-        const textParam = localStorage.getItem('text');
-        const message = text ? text
-            : screenParam ? textParam ?? newText
-                : newText;
-        if (!text) {
-            setText(() => message);
-            localStorage.setItem('text', message);
-        }
-
-        if (screenParam) {
-            const accessToken = screenParam.replace('access_token=', '');
-            postOnWallVk(accessToken, message);
-        }
+        if (!text) setText(() => getRandomText());
     }, [text]);
 
-    const vkMessage = 'Мое предсказание на 2023 год от Искусственного Интеллекта, расскажи ' +
-        'и ты о своем вузе! ' + text.replaceAll('\n', ' ');
-    const attachments = 'https://ru.surveymonkey.com/r/J7WWZDP';
-
-    const postOnWallVk = (access_token, newText) => {
-        let message = vkMessage;
-        if (!text) {
-            message += newText.replaceAll('\n', ' ');
-        }
-        window.VK.Api.call('wall.post', {message, attachments, access_token}, function (r) {
-            if (r.response) {
-                localStorage.removeItem('text');
-                window.location.href = window.location.href.split('#')[0];
-            }
-        });
-        if (typeof window.VK?.UI?.active?.closed !== 'boolean') {
-            setIsSharing(true);
-        }
-    }
-
-    const onVkShare = () => {
-        const queryParams = new URLSearchParams();
-        queryParams.append('client_id', '51508653');
-        queryParams.append('display', 'page');
-        queryParams.append('redirect_uri', `${window.location.href.split('#')[0].split('?')[0]}`);
-        queryParams.append('scope', 'wall');
-        queryParams.append('response_type', 'token');
-        const screenParam = window.location.href.split('#')[1];
-        if (!screenParam) {
-            window.open(`https://oauth.vk.com/authorize?${queryParams.toString()}`,'_self');
-        } else {
-            const accessToken = screenParam.replace('access_token=', '');
-            postOnWallVk(accessToken);
-        }
-        setIsSharing(false);
-    };
-
     const onLinkCopy = () => {
-        const text = attachments + '\n' + vkMessage;
+        const copyText = `Мое предсказание на 2023 год от Искусственного Интеллекта: «${text.replaceAll('\n', ' ')}»! 
+Расскажи о своем вузе и получи свое предсказание: https://ru.surveymonkey.com/r/J7WWZDP!`;
         if (window.clipboardData && window.clipboardData.setData) {
-            return window.clipboardData.setData('Text', text);
+            return window.clipboardData.setData('Text', copyText);
         } else if (navigator.clipboard && window.isSecureContext) {
-            return navigator.clipboard.writeText(text);
+            return navigator.clipboard.writeText(copyText);
         } else if (document.queryCommandSupported && document.queryCommandSupported('copy')) {
             const isOS = () => navigator.userAgent.match(/ipad|iphone/i);
             const textarea = document.createElement('textarea');
-            textarea.textContent = text;
+            textarea.textContent = copyText;
             textarea.style.position = 'fixed';
             textarea.disabled = true;
             document.body.appendChild(textarea);
@@ -169,7 +119,6 @@ function App() {
             </Wrapper>
             {isSharing && (
                 <ShareModal
-                    onVkShare={onVkShare}
                     onLinkShare={onLinkShare}
                     text={text}
                     onClose={() => setIsSharing(false)}
