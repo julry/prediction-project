@@ -106,7 +106,7 @@ function App() {
     const onVkShare = () => {
         const queryParams = new URLSearchParams();
         queryParams.append('client_id', '51508653');
-        queryParams.append('display', 'mobile');
+        queryParams.append('display', 'page');
         queryParams.append('redirect_uri', `${window.location.href.split('#')[0].split('?')[0]}`);
         queryParams.append('scope', 'wall');
         queryParams.append('response_type', 'token');
