@@ -72,7 +72,7 @@ function App() {
 
     const onLinkCopy = () => {
         const copyText = `Мое предсказание на 2023 год от Искусственного Интеллекта: «${text.replaceAll('\n', ' ')}»! 
-Расскажи о своем вузе и получи свое предсказание: https://ru.surveymonkey.com/r/J7WWZDP!`;
+Расскажи о своем вузе и получи свое предсказание: https://ru.surveymonkey.com/r/MTPWMSQ!`;
         if (window.clipboardData && window.clipboardData.setData) {
             return window.clipboardData.setData('Text', copyText);
         } else if (navigator.clipboard && window.isSecureContext) {
